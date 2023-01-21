@@ -1023,18 +1023,14 @@ def topk_by_partition(input, k, axis=None, ascending=True):
 
 np.set_printoptions(suppress=True, precision=3)
 
-work_dir = ""
+work_dir = "model/"
 xml_file = work_dir + "ResNet-50-model.xml"
 bin_file = work_dir + "ResNet-50-model.bin"
 input_name = 'data'
 img_width = 224
 device = "CPU"
 
-#my_img = work_dir + "african_bush_elephant_224x224x3.jpg"
-#my_img = work_dir + "african_bush_elephant.jpg"
-#my_img = work_dir + "kitten.jpg"
-my_img = work_dir + "toyota.jpg"
-
+my_img = "test_img/african_bush_elephant.jpg"
 
 img_org = cv2.imread(my_img)
 org_width = img_org.shape[1]
