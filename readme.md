@@ -25,3 +25,5 @@ python ov_inference.py
 [Installing Python on Windows](https://www.tomshardware.com/how-to/install-python-on-windows-10-and-11)
 
 [Git for Windows](https://gitforwindows.org/)
+
+[OpenVINO model zoo demos](https://docs.openvino.ai/latest/omz_demos.html#doxid-omz-demos)
