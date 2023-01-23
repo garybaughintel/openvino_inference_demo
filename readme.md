@@ -19,4 +19,9 @@ pip install openvino-dev==2022.3.0
 ```zsh
 python ov_inference.py
 ```
+## References
+[Introduction to convolutional neural networks (CNN)](https://github.com/baughg/lenet-mnist.git)
 
+[Installing Python on Windows](https://www.tomshardware.com/how-to/install-python-on-windows-10-and-11)
+
+[Git for Windows](https://gitforwindows.org/)
