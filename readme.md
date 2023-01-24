@@ -1,9 +1,10 @@
 ## Cloning the OpenVINO inference demo
 ```zsh
 git clone https://github.com/garybaughintel/openvino_inference_demo.git
+cd openvino_inference_demo
 git lfs install
 git lfs pull
-cd openvino_inference_demo
+
 ```
 
 ## Installing OpenVINO Python API
