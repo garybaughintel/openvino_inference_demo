@@ -29,3 +29,5 @@ python ov_inference.py
 [OpenVINO model zoo demos](https://docs.openvino.ai/latest/omz_demos.html#doxid-omz-demos)
 
 [YoloV4](https://www.youtube.com/watch?v=h08N0HX16l8)
+
+[Netron for viewing OpenVINO models](https://netron.app/)
