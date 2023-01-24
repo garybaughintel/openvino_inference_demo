@@ -9,8 +9,8 @@ cd openvino_inference_demo
 ## Installing OpenVINO Python API
 [The latest installation instructions.](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/download.html)
 ```zsh
-python -m venv openvino_env
-openvino_env/Scripts/activate
+python -m venv .venv
+.venv/Scripts/activate
 python -m pip install --upgrade pip
 pip install openvino-dev==2022.3.0
 ```
@@ -27,3 +27,5 @@ python ov_inference.py
 [Git for Windows](https://gitforwindows.org/)
 
 [OpenVINO model zoo demos](https://docs.openvino.ai/latest/omz_demos.html#doxid-omz-demos)
+
+[YoloV4](https://www.youtube.com/watch?v=h08N0HX16l8)
