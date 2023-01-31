@@ -59,7 +59,6 @@ input_data = {input_name:data,'image_shape':np.array([img_size], dtype=np.float3
 
 ie = IECore()
 net = ie.read_network(model=xml_file, weights=bin_file)
-#net.add_outputs("yolo_evaluation_layer_1/concat_6:0_btc")
 exec_net = ie.load_network(net, device)
 
 print("Starting inference")
