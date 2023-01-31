@@ -36,13 +36,17 @@ input_name = 'input_1'
 img_width = 416
 device = "CPU"
 
-my_img = "test_img/dog.jpg"
+# my_img = "test_img/dog.jpg"
+# my_img = "test_img/cricket.jpg"
+# my_img = "test_img/broccoli-orange.jpg"
+my_img = "test_img/african_bush_elephant.jpg"
+# my_img = "test_img/fruits-and-vegetables.jpg"
 
 img_org = cv2.imread(my_img)
 img_size = [img_org.shape[0], img_org.shape[1]]
 # img = cv2.resize(img_org,(img_width,img_width))  # out of resize is bgr
 img = resize_image_letterbox(img_org,[img_width,img_width],2)
-
+cv2.imwrite('test_img/yolo_resize.jpg', img)
 #: could not broadcast input array from shape (416,416,3) into shape (1,3,416,416)
 data = np.array(img)
 data = np.transpose(data, (2, 0, 1))   # hwc ->  chw  
