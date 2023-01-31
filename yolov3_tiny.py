@@ -43,11 +43,11 @@ img_size = [img_org.shape[0], img_org.shape[1]]
 # img = cv2.resize(img_org,(img_width,img_width))  # out of resize is bgr
 img = resize_image_letterbox(img_org,[img_width,img_width],2)
 
-#: could not broadcast input array from shape (62,62,3) into shape (1,3,62,62)
+#: could not broadcast input array from shape (416,416,3) into shape (1,3,416,416)
 data = np.array(img)
 data = np.transpose(data, (2, 0, 1))   # hwc ->  chw  
                                         # 012     201 
-data = data.reshape(1,3,img_width,img_width)   # 3,62,62 -> 1,3,62,62
+data = data.reshape(1,3,img_width,img_width)   # 3,416,416 -> 1,3,416,416
 data = data.astype('float32')
 
 
@@ -97,6 +97,8 @@ for index in indices :
                 (xmin, ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.6, text_colour, 1)
 
 cv2.imwrite('test_img/yolo_out.jpg', img_org)
+cv2.imshow("input", img_org)
+cv2.waitKey(0)
 
 
 
