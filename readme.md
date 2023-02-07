@@ -34,6 +34,8 @@ python ov_inference.py
 [Netron for viewing OpenVINO models](https://netron.app/)
 
 ## Downloading and converting YoloV3 model
+```zsh
 omz_downloader --name yolo-v3-onnx
 omz_converter --name yolo-v3-onnx
+```
 [More details on getting models from the OpenVINO model zoo](https://docs.openvino.ai/latest/omz_tools_downloader.html)
