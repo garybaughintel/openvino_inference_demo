@@ -36,7 +36,8 @@ input_name = 'input_1'
 img_width = 416
 device = "CPU"
 
-my_img = "test_img/dog.jpg"
+# my_img = "test_img/dog.jpg"
+my_img = "test_img/webcam_frame.jpg"
 #my_img = "test_img/cricket.jpg"
 # my_img = "test_img/broccoli-orange.jpg"
 #my_img = "test_img/african_bush_elephant.jpg"

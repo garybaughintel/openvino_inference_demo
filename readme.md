@@ -39,3 +39,11 @@ omz_downloader --name yolo-v3-onnx
 omz_converter --name yolo-v3-onnx
 ```
 [More details on getting models from the OpenVINO model zoo](https://docs.openvino.ai/latest/omz_tools_downloader.html)
+
+## Tracking large binary files with git lfs
+[Managing large files](https://docs.github.com/en/repositories/working-with-files/managing-large-files/configuring-git-large-file-storage)
+An example to add *.bin files to git lfs
+```zsh
+git lfs track "*.bin"
+```
+
