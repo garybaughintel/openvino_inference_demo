@@ -29,18 +29,18 @@ def resize_image_letterbox(image, size, interpolation=cv2.INTER_LINEAR):
     return resized_image
 
 
-work_dir = "model/public/yolo-v3-tiny-onnx/FP32/"
-xml_file = work_dir + "yolo-v3-tiny-onnx.xml"
-bin_file = work_dir + "yolo-v3-tiny-onnx.bin"
+work_dir = "model/public/yolo-v3-onnx/FP32/"
+xml_file = work_dir + "yolo-v3-onnx.xml"
+bin_file = work_dir + "yolo-v3-onnx.bin"
 input_name = 'input_1'
 img_width = 416
 device = "CPU"
 
-# my_img = "test_img/dog.jpg"
+my_img = "test_img/dog.jpg"
 #my_img = "test_img/cricket.jpg"
 # my_img = "test_img/broccoli-orange.jpg"
 #my_img = "test_img/african_bush_elephant.jpg"
-my_img = "test_img/fruits-and-vegetables.jpg"
+#my_img = "test_img/fruits-and-vegetables.jpg"
 
 img_org = cv2.imread(my_img)
 img_size = [img_org.shape[0], img_org.shape[1]]
@@ -64,9 +64,9 @@ exec_net = ie.load_network(net, device)
 print("Starting inference")
 result = exec_net.infer(input_data)
 
-boxes = result['yolonms_layer_1'][0]
-scores = result['yolonms_layer_1:1'][0]
-indices = result['yolonms_layer_1:2'][0]
+boxes = result['yolonms_layer_1/ExpandDims_1:0'][0]
+scores = result['yolonms_layer_1/ExpandDims_3:0'][0]
+indices = result['yolonms_layer_1/concat_2:0']
 
 colours = palette.get_colour_palette(len(coco.labels))
 confidence_threshold = 0.5
