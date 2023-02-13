@@ -28,7 +28,7 @@ xml_file = work_dir + "ResNet-50-model.xml"
 bin_file = work_dir + "ResNet-50-model.bin"
 input_name = 'data'
 img_width = 224
-device = "CPU"
+device = "GPU"
 
 max_num_requests = 4
 
@@ -38,9 +38,15 @@ exec_net = ie.load_network(net, device, num_requests=max_num_requests)
 request = exec_net.requests[0]
 
 request_frame = []
+total_inference_frames = 0
+start_time = time.time()
+fps_str = ''
 
 # Define a callback function that will be called when the request is complete
-def callback(request_id):    
+def callback(request_id):  
+    global total_inference_frames 
+    global fps_str 
+    global start_time
     frame = request_frame[request_id]
 
     # Get the output of the model
@@ -74,8 +80,26 @@ def callback(request_id):
         text_y = text_y + 30
         bottomLeftCornerOfText = (50,text_y)
 
+    total_inference_frames += 1
+
+    if total_inference_frames == 30:
+        end_time = time.time()
+        fps_str = f'{(30 / (end_time - start_time)):2.1f} FPS'        
+        total_inference_frames = 0
+        start_time = time.time()
+
+    cv2.putText(frame,fps_str, 
+        (frame.shape[1] - 150,frame.shape[0] - 50), 
+        cv2.FONT_HERSHEY_PLAIN, 
+        1.8,
+        (0,255,0),
+        1,
+        lineType)
+
     # Display the resulting frame
     cv2.imshow('frame', frame)
+    
+
 
 
     
