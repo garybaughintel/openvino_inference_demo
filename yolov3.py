@@ -34,7 +34,7 @@ xml_file = work_dir + "yolo-v3-onnx.xml"
 bin_file = work_dir + "yolo-v3-onnx.bin"
 input_name = 'input_1'
 img_width = 416
-device = "CPU"
+device = "GPU"
 
 #my_img = "test_img/dog.jpg"
 #my_img = "test_img/webcam_frame.jpg"
