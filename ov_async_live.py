@@ -43,7 +43,7 @@ start_time = time.time()
 fps_str = ''
 
 # Define a callback function that will be called when the request is complete
-def callback(request_id):  
+def inference_result_ready(request_id):  
     global total_inference_frames 
     global fps_str 
     global start_time
@@ -141,7 +141,7 @@ while(True):
     exec_net.requests[request_slot].wait()
     
     if get_inference_result == True:
-        callback(request_slot)
+        inference_result_ready(request_slot)
 
     exec_net.requests[request_slot].async_infer(input_data)    
     
