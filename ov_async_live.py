@@ -21,7 +21,11 @@ def topk_by_partition(input, k, axis=None, ascending=True):
     return ind, val
   
 # define a video capture object
-vid = cv2.VideoCapture(0)
+# vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
+
+vid.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 work_dir = "model/"
 xml_file = work_dir + "ResNet-50-model.xml"
