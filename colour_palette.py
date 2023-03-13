@@ -30,8 +30,10 @@ def get_colour_palette(n) :
   palette = [hsv2rgb(*hsv) for hsv in hsv_colors]
 
   if n == 80 :
-    palette[0] = (252, 207, 3)
+    palette[0] = (252, 207, 3) # person
+    palette[15] = (242, 116, 223) # cat    
   else :
     palette[1] = (252, 207, 3)
+    palette[17] = (242, 116, 223) # cat
 
   return palette

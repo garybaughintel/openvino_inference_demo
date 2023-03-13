@@ -19,18 +19,6 @@ def clip_detection(box, size):
   box[3] = min(int(box[3]), size[0]) #ymax
   return np.int32(box)
 
-def resize_image_letterbox(image, size, interpolation=cv2.INTER_LINEAR):
-    ih, iw = image.shape[0:2]
-    w, h = size
-    scale = min(w / iw, h / ih)
-    nw = int(iw * scale)
-    nh = int(ih * scale)
-    image = cv2.resize(image, (nw, nh), interpolation=interpolation)
-    dx = (w - nw) // 2
-    dy = (h - nh) // 2
-    resized_image = np.pad(image, ((dy, dy + (h - nh) % 2), (dx, dx + (w - nw) % 2), (0, 0)),
-                           mode='constant', constant_values=0)
-    return resized_image
 
 
 work_dir = "model/public/ssdlite_mobilenet_v2/FP32/"
@@ -49,8 +37,8 @@ my_img = "test_img/cricket.jpg"
 img_org = cv2.imread(my_img)
 img_size = [img_org.shape[0], img_org.shape[1]]
 img = cv2.resize(img_org,(img_width,img_width))  # out of resize is bgr
-#img = resize_image_letterbox(img_org,[img_width,img_width],2)
-cv2.imwrite('test_img/yolo_resize.jpg', img)
+
+cv2.imwrite('test_img/ssdlite_resize.jpg', img)
 #: could not broadcast input array from shape (416,416,3) into shape (1,3,416,416)
 data = np.array(img)
 data = np.transpose(data, (2, 0, 1))   # hwc ->  chw  
