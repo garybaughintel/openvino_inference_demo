@@ -1,8 +1,7 @@
 import numpy as np
 from openvino.inference_engine import IENetwork, IECore, get_version as ie_get_version
 import cv2
-import time
-import pdb
+
 import coco80_labels as coco
 import colour_palette as palette
 
@@ -99,7 +98,7 @@ for index in indices :
     cv2.putText(img_org, det_label,
                 (xmin, ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.6, text_colour, 1)
 
-cv2.imwrite('test_img/yolo_out.jpg', img_org)
+cv2.imwrite('test_img/yolo_out_tiny.jpg', img_org)
 cv2.imshow("input", img_org)
 cv2.waitKey(0)
 

@@ -28,4 +28,5 @@ def get_colour_palette(n) :
       hsv_colors.append(colors_candidates[arg_max])
 
   palette = [hsv2rgb(*hsv) for hsv in hsv_colors]
+  palette[0] = (252, 207, 3)
   return palette

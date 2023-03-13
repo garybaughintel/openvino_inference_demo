@@ -1,8 +1,7 @@
 import numpy as np
 from openvino.inference_engine import IENetwork, IECore, get_version as ie_get_version
 import cv2
-import time
-import pdb
+
 import coco80_labels as coco
 import colour_palette as palette
 
@@ -70,6 +69,7 @@ scores = result['yolonms_layer_1/ExpandDims_3:0'][0]
 indices = result['yolonms_layer_1/concat_2:0']
 
 colours = palette.get_colour_palette(len(coco.labels))
+
 confidence_threshold = 0.5
 label_height = 25
 
