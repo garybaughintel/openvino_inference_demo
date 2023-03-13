@@ -32,13 +32,6 @@ device = "CPU"
 my_img = "test_img/african_bush_elephant.jpg"
 
 img_org = cv2.imread(my_img)
-org_width = img_org.shape[1]
-org_height = img_org.shape[0]
-
-
-
-ratio_w = org_width / img_width
-ratio_h = org_height / img_width
 
 img = cv2.resize(img_org,(img_width,img_width))  # out of resize is bgr
 
@@ -89,7 +82,7 @@ for i in range(0,k):
 
 
 
-
+cv2.imwrite('test_img/resnet_out.jpg', img_org)
 cv2.imshow("input", img_org)
 cv2.waitKey(0)
 

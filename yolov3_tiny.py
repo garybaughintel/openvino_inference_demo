@@ -37,10 +37,10 @@ img_width = 416
 device = "CPU"
 
 # my_img = "test_img/dog.jpg"
-#my_img = "test_img/cricket.jpg"
+my_img = "test_img/cricket.jpg"
 # my_img = "test_img/broccoli-orange.jpg"
 #my_img = "test_img/african_bush_elephant.jpg"
-my_img = "test_img/fruits-and-vegetables.jpg"
+#my_img = "test_img/fruits-and-vegetables.jpg"
 
 img_org = cv2.imread(my_img)
 img_size = [img_org.shape[0], img_org.shape[1]]

@@ -1,0 +1,139 @@
+import numpy as np
+from openvino.inference_engine import IENetwork, IECore, get_version as ie_get_version
+import cv2
+import time
+import pdb
+import coco80_labels as coco
+import colour_palette as palette
+
+np.set_printoptions(suppress=True, precision=3)
+
+def clip_detection(box, size):
+  box[0] = max(int(box[0]), 0) #ymin
+  box[1] = max(int(box[1]), 0) #xmin  
+  box[2] = min(int(box[2]), size[0]) #ymax
+  box[3] = min(int(box[3]), size[1]) #xmax
+  return np.int32(box)
+
+def resize_image_letterbox(image, size, interpolation=cv2.INTER_LINEAR):
+    ih, iw = image.shape[0:2]
+    w, h = size
+    scale = min(w / iw, h / ih)
+    nw = int(iw * scale)
+    nh = int(ih * scale)
+    image = cv2.resize(image, (nw, nh), interpolation=interpolation)
+    dx = (w - nw) // 2
+    dy = (h - nh) // 2
+    resized_image = np.pad(image, ((dy, dy + (h - nh) % 2), (dx, dx + (w - nw) % 2), (0, 0)),
+                           mode='constant', constant_values=0)
+    return resized_image
+
+
+work_dir = "model/public/yolo-v3-onnx/FP32/"
+xml_file = work_dir + "yolo-v3-onnx.xml"
+bin_file = work_dir + "yolo-v3-onnx.bin"
+input_name = 'input_1'
+img_width = 416
+device = "GPU"
+
+
+ie = IECore()
+net = ie.read_network(model=xml_file, weights=bin_file)
+exec_net = ie.load_network(net, device)
+
+print("Starting inference")
+
+colours = palette.get_colour_palette(len(coco.labels))
+confidence_threshold = 0.5
+label_height = 25
+  
+  
+# define a video capture object
+#vid = cv2.VideoCapture(0)
+
+vid = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+vid.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
+total_inference_frames = 0
+start_time = time.time()
+fps_str = ''
+lineType               = 2
+
+while(True):    
+    # Capture the video frame
+    # by frame
+    ret, frame = vid.read()
+    img_size = [frame.shape[0], frame.shape[1]]
+    img = resize_image_letterbox(frame,[img_width,img_width],2)
+
+    #: could not broadcast input array from shape (416,416,3) into shape (1,3,416,416)
+    data = np.array(img)
+    data = np.transpose(data, (2, 0, 1))   # hwc ->  chw  
+                                            # 012     201 
+    data = data.reshape(1,3,img_width,img_width)   # 3,416,416 -> 1,3,416,416
+    data = data.astype('float32')
+
+    input_data = {input_name:data,'image_shape':np.array([img_size], dtype=np.float32)}
+
+    result = exec_net.infer(input_data)
+
+    boxes = result['yolonms_layer_1/ExpandDims_1:0'][0]
+    scores = result['yolonms_layer_1/ExpandDims_3:0'][0]
+    indices = result['yolonms_layer_1/concat_2:0']
+
+    for index in indices :
+        if(index[0] == -1) :
+            break
+
+        score = scores[tuple(index[1:])]
+
+        if(score >= confidence_threshold) :
+            # ymin, xmin, ymax, xmax
+            box = boxes[index[2]]
+            box = clip_detection(box, img_size)      
+            label_index = index[1]
+            ymin = box[0]
+            xmin = box[1]
+            ymax = box[2] 
+            xmax = box[3]            
+            det_label = f'{score*100:2.1f}% {coco.labels[label_index]}'
+            
+            colour = colours[label_index]
+            text_colour = (28,28,28)
+
+            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), colour, 2)
+            cv2.rectangle(frame, (xmin, ymin-label_height), (xmax, ymin), colour, -1)
+            cv2.rectangle(frame, (xmin, ymin-label_height), (xmax, ymin), colour, 2)
+            cv2.putText(frame, det_label,
+                        (xmin, ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.6, text_colour, 1)
+
+    # Display the resulting frame
+    total_inference_frames += 1
+
+    if total_inference_frames == 30:
+        end_time = time.time()
+        fps_str = f'{(30 / (end_time - start_time)):2.1f} FPS'        
+        total_inference_frames = 0
+        start_time = time.time()
+
+    cv2.putText(frame,fps_str, 
+        (frame.shape[1] - 150,frame.shape[0] - 50), 
+        cv2.FONT_HERSHEY_PLAIN, 
+        1.8,
+        (0,255,0),
+        1,
+        lineType)
+
+    cv2.imshow('frame', frame)
+      
+    # the 'q' button is set as the
+    # quitting button you may use any
+    # desired button of your choice
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+  
+# After the loop release the cap object
+vid.release()
+# Destroy all the windows
+cv2.destroyAllWindows()
