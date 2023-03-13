@@ -27,7 +27,7 @@ xml_file = work_dir + "ResNet-50-model.xml"
 bin_file = work_dir + "ResNet-50-model.bin"
 input_name = 'data'
 img_width = 224
-device = "CPU"
+device = "GPU"
 
 my_img = "test_img/african_bush_elephant.jpg"
 
@@ -82,7 +82,7 @@ for i in range(0,k):
 
 
 
-cv2.imwrite('test_img/resnet_out.jpg', img_org)
+cv2.imwrite('test_img/resnet_' + device + '_out.jpg', img_org)
 cv2.imshow("input", img_org)
 cv2.waitKey(0)
 
