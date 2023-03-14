@@ -37,7 +37,7 @@ xml_file = work_dir + "yolo-v3-tiny-onnx.xml"
 bin_file = work_dir + "yolo-v3-tiny-onnx.bin"
 input_name = 'input_1'
 img_width = 416
-device = "CPU"
+device = "GPU"
 
 max_num_requests = 4
 
@@ -112,7 +112,7 @@ def inference_result_ready(request_id):
         lineType)
 
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    cv2.imshow('YoloV3 Tiny ONNX (async)', frame)
     
 
 

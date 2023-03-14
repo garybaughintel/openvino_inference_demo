@@ -101,7 +101,7 @@ def inference_result_ready(request_id):
         lineType)
 
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    cv2.imshow('ResNet50 (async)', frame)
     
 
 

@@ -90,7 +90,7 @@ for detection in detection_output :
                 (xmin, ymin - 7), cv2.FONT_HERSHEY_SIMPLEX, 0.6, text_colour, 1)
 
 cv2.imwrite('test_img/ssdlite_out.jpg', img_org)
-cv2.imshow("input", img_org)
+cv2.imshow(my_img, img_org)
 cv2.waitKey(0)
 
 

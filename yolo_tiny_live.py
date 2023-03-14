@@ -124,7 +124,7 @@ while(True):
         1,
         lineType)
     
-    cv2.imshow('frame', frame)
+    cv2.imshow('YoloV3 Tiny ONNX (sync)', frame)
       
     # the 'q' button is set as the
     # quitting button you may use any

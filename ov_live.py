@@ -89,7 +89,7 @@ while(True):
         bottomLeftCornerOfText = (50,text_y)
 
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    cv2.imshow('ResNet50 (sync)', frame)
       
     # the 'q' button is set as the
     # quitting button you may use any

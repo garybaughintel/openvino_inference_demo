@@ -34,7 +34,7 @@ xml_file = work_dir + "yolo-v3-onnx.xml"
 bin_file = work_dir + "yolo-v3-onnx.bin"
 input_name = 'input_1'
 img_width = 416
-device = "GPU"
+device = "CPU"
 
 
 ie = IECore()
@@ -125,7 +125,7 @@ while(True):
         1,
         lineType)
 
-    cv2.imshow('frame', frame)
+    cv2.imshow('YoloV3 ONNX', frame)
       
     # the 'q' button is set as the
     # quitting button you may use any

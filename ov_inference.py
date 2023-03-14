@@ -26,7 +26,7 @@ xml_file = work_dir + "ResNet-50-model.xml"
 bin_file = work_dir + "ResNet-50-model.bin"
 input_name = 'data'
 img_width = 224
-device = "GPU"
+device = "CPU"
 
 my_img = "test_img/african_bush_elephant.jpg"
 
@@ -49,7 +49,6 @@ exec_net = ie.load_network(net, device)
 
 print("Starting inference")
 result = exec_net.infer(input_data)
-
 
 k = 5
 top_k = topk_by_partition(result['prob'],k,1,False)
@@ -82,6 +81,6 @@ for i in range(0,k):
 
 
 cv2.imwrite('test_img/resnet_' + device + '_out.jpg', img_org)
-cv2.imshow("input", img_org)
+cv2.imshow(my_img, img_org)
 cv2.waitKey(0)
 

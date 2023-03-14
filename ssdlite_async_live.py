@@ -29,7 +29,7 @@ xml_file = work_dir + "ssdlite_mobilenet_v2.xml"
 bin_file = work_dir + "ssdlite_mobilenet_v2.bin"
 input_name = 'image_tensor'
 img_width = 300
-device = "CPU"
+device = "GPU"
 
 max_num_requests = 4
 
@@ -105,7 +105,7 @@ def inference_result_ready(request_id):
         lineType)
 
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    cv2.imshow('SSDLite MobileNetV2 (async)', frame)
     
 
 
