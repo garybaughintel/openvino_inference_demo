@@ -72,7 +72,7 @@ def inference_result_ready(request_id):
         
         label_index = np.argmax(det_score,axis=0)
 
-        if(label_index == 91) :
+        if(label_index == 91) : # no object label
             continue
         
         sm = softmax(det_score)
