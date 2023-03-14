@@ -115,7 +115,7 @@ def inference_result_ready(request_id):
         lineType)
 
     # Display the resulting frame
-    cv2.imshow('SSDLite MobileNetV2 (async)', frame)
+    cv2.imshow('Detr-ResNet50 (async)', frame)
     
 
 
