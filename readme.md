@@ -11,7 +11,7 @@ git lfs pull
 [The latest installation instructions.](https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/download.html)
 ```zsh
 python -m venv .venv
-.venv/Scripts/activate
+.venv\Scripts\activate
 python -m pip install --upgrade pip
 pip install openvino-dev==2022.3.0
 ```
